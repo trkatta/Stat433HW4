@@ -15,7 +15,6 @@ library(nycflights13)
 library(ggplot2)
 library(tidyverse)
 flights3 = flights %>% left_join(airports, by = c("dest" = "faa"))
-plot(flights3$hour,flights3$dep_delay)
 x = ggplot(data = flights3,aes(flights3$hour,flights3$dep_delay)) + geom_point(color = "gray") + geom_smooth()
 x + scale_y_continuous(name="wind_speed", limits=c(0, 500))
 ```
@@ -26,8 +25,8 @@ flights2 = flights %>% left_join(weather)
 sp = ggplot(data=flights2,aes(wind_speed,flights2$dep_delay)) + geom_point(color = "red") + geom_smooth()
 
 sp + scale_y_continuous(name="wind_speed", limits=c(0, 500))
-z = flights2 %>% group_by(wind_speed)
-r = flights2 %>% group_by(dep_delay)
+#z = flights2 %>% group_by(wind_speed)
+#r = flights2 %>% group_by(dep_delay)
 ```
 
 Pressure
