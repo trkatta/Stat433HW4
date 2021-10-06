@@ -1,0 +1,41 @@
+---
+title: "HW4"
+author: "Taran Katta"
+date: "10/4/2021"
+output: github_document
+---
+
+There seems to be a higher average delay time at later times in the day, peaking around 8:00 pm.
+Wind_Speed: From the graph line, we learn that there seems to be some correlation with a higher average delay time at higher wind_speeds.
+Pressure: From this graph, there seems to be the highest average delay time at around 1000 units of pressure with the pressure going up until 1000 units and back down as you increase it.
+Precipitation: There seems to be higher delay occurrences in higher precipitation, which makes sense because snow and rain are hazards.
+
+```{r}
+library(nycflights13)
+library(ggplot2)
+library(tidyverse)
+flights3 = flights %>% left_join(airports, by = c("dest" = "faa"))
+plot(flights3$hour,flights3$dep_delay)
+x = ggplot(data = flights3,aes(flights3$hour,flights3$dep_delay)) + geom_point(color = "gray") + geom_smooth()
+x + scale_y_continuous(name="wind_speed", limits=c(0, 500))
+```
+
+Wind Speed
+```{r}
+flights2 = flights %>% left_join(weather)
+sp = ggplot(data=flights2,aes(wind_speed,flights2$dep_delay)) + geom_point(color = "red") + geom_smooth()
+
+sp + scale_y_continuous(name="wind_speed", limits=c(0, 500))
+z = flights2 %>% group_by(wind_speed)
+r = flights2 %>% group_by(dep_delay)
+```
+
+Pressure
+```{r}
+ggplot(data=flights2,aes(pressure,dep_delay)) + geom_point(color = "blue") + geom_smooth(color = "orange")
+```
+Precipitation
+```{r}
+print(head(flights2))
+ggplot(data=flights2,aes(precip,dep_delay)) + geom_point(color = "purple") + geom_smooth(color = "green")
+```
